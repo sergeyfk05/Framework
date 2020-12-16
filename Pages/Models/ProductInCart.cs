@@ -11,9 +11,11 @@ namespace Pages.Models
     public class ProductInCart
     {
         IWebElement _container;
-        public ProductInCart(IWebElement container)
+        IWebDriver _driver;
+        public ProductInCart(IWebElement container, IWebDriver driver)
         {
             _container = container;
+            _driver = driver;
         }
         public string Title => _container.FindElement(_productTitleLocator).Text;
         public int Count => Convert.ToInt32(_container.FindElement(_productCountLocator).Text);
@@ -25,7 +27,7 @@ namespace Pages.Models
         public void Remove()
         {
             _removeButton.Click();
-            Thread.Sleep(1500);
+            _driver.SafeFindElementBy(_loadingIndicatorLocator);
         }
 
         public override bool Equals(object obj)
@@ -49,5 +51,6 @@ namespace Pages.Models
         private static readonly By _productTitleLocator = By.XPath(".//*[@data-testid='itemTitle']");
 
         private static readonly By _productRemoveButtonLocator = By.XPath(".//*[@data-testid='cartRemoveItemAction']");
+        private static readonly By _loadingIndicatorLocator = By.XPath("//div[@id='loaderDivImage' and contains(@style, 'display: none;')]");
     }
 }

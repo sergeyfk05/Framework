@@ -29,7 +29,7 @@ namespace Pages
 
                 foreach (var el in productContainers)
                 {
-                    products.Add(new ProductInCart(el));
+                    products.Add(new ProductInCart(el, _driver));
                 }
 
                 return products;

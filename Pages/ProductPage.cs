@@ -17,6 +17,7 @@ namespace Pages
         public AddedToCartPage AddToCart()
         {
             _addToCartButton?.Click();
+            _driver.WaitUntiLoading();
             _driver.SafeFindElementBy(_elementConfirmingAddingToCartLocators);
             return new AddedToCartPage(_driver);
         }
