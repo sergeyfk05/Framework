@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Framework.TestData
+namespace Framework.TestDataProviders
 {
-    public class RemoveFromCartTestData : IEnumerable<object[]>
+    public class RemoveFromCartTestDataProvider : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

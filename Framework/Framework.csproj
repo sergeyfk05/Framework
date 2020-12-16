@@ -26,4 +26,10 @@
     <ProjectReference Include="..\WebDriverFactory\WebDriverFactory.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="TestDataProviders\TestData\AddingToCartTestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

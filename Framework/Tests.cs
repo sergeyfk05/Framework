@@ -1,4 +1,4 @@
-﻿using Framework.TestData;
+﻿using Framework.TestDataProviders;
 using OpenQA.Selenium;
 using Pages;
 using Pages.Builders;
@@ -15,11 +15,9 @@ namespace Framework
     public class Tests : CommonConditions
     {
 
-        private readonly IWebDriver _driver;
-
-        [Theory]
-        [InlineData("https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s")]
-        [InlineData("https://www.dell.com/en-us/shop/dell-laptops/alienware-m17-r3-gaming-laptop/spd/alienware-m17-r3-laptop/wnm17r312sbf")]
+        //[Theory]
+        //[InlineData("https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s")]
+        //[InlineData("https://www.dell.com/en-us/shop/dell-laptops/alienware-m17-r3-gaming-laptop/spd/alienware-m17-r3-laptop/wnm17r312sbf")]
         //[InlineData("https://www.dell.com/en-us/shop/dell-ultrasharp-32-8k-monitor-up3218k/apd/210-alez/monitors-monitor-accessories")]
         //[InlineData("https://www.dell.com/en-us/shop/dell-laptops/new-dell-g7-17-gaming-laptop/spd/g-series-17-7700-laptop/gn7700ehyyh")]
         //[InlineData("https://www.dell.com/en-us/shop/new-alienware-low-profile-rgb-mechanical-gaming-keyboard-aw510k/apd/580-aimo/pc-accessories")]
@@ -29,9 +27,11 @@ namespace Framework
         //[InlineData("https://www.dell.com/en-us/shop/kensington-ld4650p-usb-c-universal-dock-with-k-fob-smart-lock-docking-station-usb-c-gige-north-america/apd/aa659274/pc-accessories")]
         //[InlineData("https://www.dell.com/en-us/shop/dell-32-curved-gaming-monitor-s3220dgf/apd/210-atyt/monitors-monitor-accessories")]
         //[InlineData("https://www.dell.com/en-us/shop/pny-nvidia-quadro-rtx-6000-graphics-card-24-gb-gddr6-pcie-30-x16-4-x-displayport-usb-c/apd/aa413562/graphic-video-cards")]
+        [Theory]
+        [ClassData(typeof(AddingToCartTestDataProvider))]
         public void AddingToCartTest(string link)
         {
-            ProductPage product = new ProductPageBuilder(_driver).SetProductLink(link).Build();
+            ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();
             product.Open();
             product.AcceptCookies();
 
@@ -42,23 +42,23 @@ namespace Framework
 
             Assert.Equal(productPagePrice, addedToCartPageSubtotal);
 
-            CartPage cart = new CartPage(_driver);
+            CartPage cart = new CartPage(driver);
             cart.Open();
             List<ProductInCart> cartProducts = cart.Products.ToList();
 
             Assert.Single(cartProducts);
-            Assert.Equal(1, cartProducts[0].Count);
+            Assert.Equal(1, cartProducts[0].Count); //products count should be equal "1" because the test adding one product
             Assert.Equal(productPageTitle, cartProducts[0].Title);
             Assert.Equal(productPagePrice, cartProducts[0].Subtotal);
         }
 
         [Theory]
-        [ClassData(typeof(RemoveFromCartTestData))]
+        [ClassData(typeof(RemoveFromCartTestDataProvider))]
         public void RemoveFromCartTest(IEnumerable<string> links)
         {
             foreach (var link in links)
             {
-                ProductPage product = new ProductPageBuilder(_driver).SetProductLink(link).Build();
+                ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();
                 product.Open();
                 product.AcceptCookies();
 
@@ -66,7 +66,7 @@ namespace Framework
             }
 
 
-            CartPage cart = new CartPage(_driver);
+            CartPage cart = new CartPage(driver);
             cart.Open();
             List<ProductInCart> cartProducts = cart.Products.ToList();
 
