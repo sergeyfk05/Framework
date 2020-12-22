@@ -27,12 +27,27 @@ namespace Pages
 
 
             IWebElement dropdownContainer =  _driver.SafeFindElementBy(_openCartDropdownLocator);
-            dropdownContainer.FindElement(_addToCartButtonInCartDropdownLocator).Click();
+            dropdownContainer.FindElement(_openCartButtonInCartDropdownLocator).Click();
 
             _driver.WaitUntiLoading();
 
             return new CartPage(_driver);
         }
+
+        public SignInPage OpenSignInPage()
+        {
+            //check are user signed yet
+#if RELEASE
+            throw new NotImplementedException();
+#endif
+            _signInDropdownButton.Click();
+
+            _signInButton.Click();
+            _driver.WaitUntiLoading();
+
+            return new SignInPage(_driver);
+        }
+
 
         public virtual void Open()
         {
@@ -51,6 +66,14 @@ namespace Pages
 
         private static readonly By _openCartDropdownButtonLocator = By.XPath("//div[@id='mh-cart']//a");
         private static readonly By _openCartDropdownLocator = By.XPath("//div[@class='mh-ct-dropdown']");
-        private static readonly By _addToCartButtonInCartDropdownLocator = By.XPath(".//button");
+        private static readonly By _openCartButtonInCartDropdownLocator = By.XPath(".//button");
+
+        private IWebElement _signInButton => _signInDropdown.SafeFindFirstDisplayedElementBy(_driver, _signInButtonLocator);
+        private static readonly By _signInButtonLocator = By.XPath("//a[text()='Sign In']");
+        private IWebElement _signInDropdown => _signInDropdownButton.SafeFindFirstDisplayedElementBy(_driver, _signInDropdownLocator);
+        private static readonly By _signInDropdownLocator = By.XPath("//div[contains(@class, 'mh-ma-dropdown')]");
+
+        private IWebElement _signInDropdownButton => _driver.SafeFindElementBy(_signInDropdownButtonLocator);
+        private static readonly By _signInDropdownButtonLocator = By.XPath("//div[@class='mh-tw-sign-in-wrap']");
     }
 }

@@ -1,0 +1,18 @@
+[
+  {
+    "Info": {
+      "FirstName": "first",
+      "LastName": "last",
+      "MI": "1",
+      "StreetAddress": "street",
+      "Apt": "apt",
+      "PostalCode": 225404,
+      "City": "minsk",
+      "State": "California",
+      "PhoneNumber": "1234567890",
+      "EmailAddress": "email@gmail.com"
+    },
+    "Link": "https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s",
+    "HasValidationErrors": true
+  }
+]

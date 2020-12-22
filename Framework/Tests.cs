@@ -1,4 +1,5 @@
-﻿using Framework.TestDataProviders;
+﻿using Framework.Models;
+using Framework.TestDataProviders;
 using OpenQA.Selenium;
 using Pages;
 using Pages.Builders;
@@ -25,13 +26,7 @@ namespace Framework
             double productPagePrice = product.Price;
             string productPageTitle = product.Title;
 
-            AddedToCartPage addedToCartPage = product.AddToCart();
-            double addedToCartPageSubtotal = addedToCartPage.Subtotal;
-
-            Assert.Equal(productPagePrice, addedToCartPageSubtotal);
-
-            CartPage cart = addedToCartPage.OpenCart();
-            cart.Open();
+            CartPage cart = product.AddToCart().OpenCart();
             List<ProductInCart> cartProducts = cart.Products.ToList();
 
             Assert.Single(cartProducts);
@@ -71,6 +66,41 @@ namespace Framework
 
             cartProducts = cart.Products.ToList();
             Assert.Empty(cartProducts);
+        }
+
+        [Theory]
+        [ClassData(typeof(ShippingInfoValidationTestDataProvider))]
+        public void ShippingInfoValidationTest(ShippingInfoValidationTestData data)
+        {
+            ProductPage product = new ProductPageBuilder(driver).SetProductLink(data.Link).Build();
+            product.Open();
+            product.AcceptCookies();
+
+            ShippingPage shippingPage = product.AddToCart().OpenCart().Checkout().Login(data.UserInfo ?? new User() { loginOption = LoginOption.Guest });
+            shippingPage.FirstName = data.Info.FirstName;
+            shippingPage.LastName = data.Info.LastName;
+            shippingPage.MI = data.Info.MI;
+            shippingPage.StreetAddress = data.Info.StreetAddress;
+            shippingPage.Apt = data.Info.Apt;
+            shippingPage.PostalCode = data.Info.PostalCode;
+            shippingPage.City = data.Info.City;
+            shippingPage.State = data.Info.State;
+            shippingPage.PhoneNumber = data.Info.PhoneNumber;
+            shippingPage.EmailAddress = data.Info.EmailAddress;
+            
+            bool hasValidationErrors;
+            shippingPage.Next(out hasValidationErrors);
+            Assert.Equal(data.HasValidationErrors, hasValidationErrors);
+        }
+
+        [Fact]
+        public void AuthorizationTest()
+        {
+            HomePage page = new HomePage(driver);
+            page.Open();
+            page.AcceptCookies();
+
+            page.OpenSignInPage();
         }
     }
 }

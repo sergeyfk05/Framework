@@ -22,6 +22,8 @@ namespace Pages
             return new AddedToCartPage(_driver);
         }
 
+
+
         public double Price => Convert.ToDouble(_driver.SafeFindElementBy(_priceTextLocators).Text.Replace("$", ""),
                 WebDriverUtils.CostToDoubleConverterProvider);
 

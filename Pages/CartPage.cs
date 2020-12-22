@@ -19,6 +19,14 @@ namespace Pages
         public double Subtotal => Convert.ToDouble(_driver.SafeFindElementBy(_subtotalLocators).Text.Replace("$", ""),
                 WebDriverUtils.CostToDoubleConverterProvider);
 
+        private IWebElement _checkoutButton => WebDriverUtils.SafeFindFirstDisplayedElementBy(_driver, _checkoutButtonLocators);
+        public CheckoutPage Checkout()
+        {
+            _checkoutButton?.Click();
+            _driver.WaitUntiLoading();
+            return new CheckoutPage(_driver);
+        }
+
         public IEnumerable<ProductInCart> Products
         {
             get
@@ -35,6 +43,11 @@ namespace Pages
                 return products;
             }
         }
+
+        private static readonly IEnumerable<By> _checkoutButtonLocators = new List<By>()
+            {
+                By.XPath("//*[@data-testid='continueCheckoutButton']")
+            };
 
         private static readonly IEnumerable<By> _subtotalLocators = new List<By>()
             {
