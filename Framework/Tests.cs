@@ -1,4 +1,5 @@
-﻿using Framework.Models;
+﻿using AutoMapper;
+using Framework.Models;
 using Framework.TestDataProviders;
 using OpenQA.Selenium;
 using Pages;
@@ -77,21 +78,14 @@ namespace Framework
             product.AcceptCookies();
 
             ShippingPage shippingPage = product.AddToCart().OpenCart().Checkout().Login(data.UserInfo ?? new User() { loginOption = LoginOption.Guest });
-            shippingPage.FirstName = data.Info.FirstName;
-            shippingPage.LastName = data.Info.LastName;
-            shippingPage.MI = data.Info.MI;
-            shippingPage.StreetAddress = data.Info.StreetAddress;
-            shippingPage.Apt = data.Info.Apt;
-            shippingPage.PostalCode = data.Info.PostalCode;
-            shippingPage.City = data.Info.City;
-            shippingPage.State = data.Info.State;
-            shippingPage.PhoneNumber = data.Info.PhoneNumber;
-            shippingPage.EmailAddress = data.Info.EmailAddress;
+            _mapper.Map(data.Info, shippingPage);
             
             bool hasValidationErrors;
             shippingPage.Next(out hasValidationErrors);
             Assert.Equal(data.HasValidationErrors, hasValidationErrors);
         }
+
+        private IMapper _mapper => (new MapperConfiguration(cfg => cfg.CreateMap<ShippingInfo, ShippingPage>())).CreateMapper();
 
         [Fact]
         public void AuthorizationTest()
