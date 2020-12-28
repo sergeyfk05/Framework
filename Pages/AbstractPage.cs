@@ -18,8 +18,7 @@ namespace Pages
 
         public void AcceptCookies()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click()", _cookieUsageAcceptButton);
-            //_cookieUsageAcceptButton?.Click();
+            _cookieUsageAcceptButton?.Click();
         }
 
         public CartPage OpenCart()
