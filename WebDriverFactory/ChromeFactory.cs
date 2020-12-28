@@ -12,10 +12,10 @@ namespace WebDriverFactory
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--window-size=1920,1080");
-            options.AddArgument("--start-maximized");
+            //options.AddArgument("--start-maximized");
             options.AddArgument("--no-sandbox");
             options.AddArgument("--disable-gpu");
-            options.AddArguments("--headless");
+            //options.AddArguments("--headless");
 
             return new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromSeconds(150));
         }
