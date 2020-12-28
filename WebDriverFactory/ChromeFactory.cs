@@ -13,7 +13,7 @@ namespace WebDriverFactory
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             options.AddArgument("no-sandbox");
-            //options.AddArguments("headless");
+            options.AddArguments("headless");
             return new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromSeconds(150));
         }
 
