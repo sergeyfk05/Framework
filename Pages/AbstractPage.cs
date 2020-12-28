@@ -18,6 +18,7 @@ namespace Pages
 
         public void AcceptCookies()
         {
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", _cookieUsageAcceptButton);
             _cookieUsageAcceptButton?.Click();
         }
 

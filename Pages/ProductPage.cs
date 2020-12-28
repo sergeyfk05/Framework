@@ -16,6 +16,7 @@ namespace Pages
 
         public AddedToCartPage AddToCart()
         {
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", _addToCartButton);
             _addToCartButton?.Click();
             _driver.WaitUntiLoading();
             _driver.SafeFindElementBy(_elementConfirmingAddingToCartLocators);
