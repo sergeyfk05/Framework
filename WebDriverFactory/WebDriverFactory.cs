@@ -13,7 +13,7 @@ namespace WebDriverFactory
         [Obsolete]
         public static IWebDriver Build()
         {
-            if(Environment.GetEnvironmentVariable("selenoid-url") == null)
+            if(Environment.GetEnvironmentVariable("selenoidurl") == null)
             {
                 ChromeOptions options = new ChromeOptions();
                 options.AddArgument("--start-maximized");
@@ -25,7 +25,7 @@ namespace WebDriverFactory
             {
                 DesiredCapabilities browser = new DesiredCapabilities();
                 browser.SetCapability(CapabilityType.BrowserName, Environment.GetEnvironmentVariable("browser") ?? "chrome");
-                browser.SetCapability(CapabilityType.BrowserVersion, Environment.GetEnvironmentVariable("browser-version") ?? "");
+                browser.SetCapability(CapabilityType.BrowserVersion, Environment.GetEnvironmentVariable("browserversion") ?? "");
                 Enum.TryParse(Environment.GetEnvironmentVariable("platform") ?? "Linux", out PlatformType platform);
                 browser.SetCapability(CapabilityType.Platform, platform);
                 browser.SetCapability("enableVNC", true);
