@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Linq;
+using Core.Models;
 
 namespace Core.Pages.PageElements
 {
@@ -54,5 +55,14 @@ namespace Core.Pages.PageElements
 
         private static readonly By _productRemoveButtonLocator = By.XPath(".//*[@data-testid='cartRemoveItemAction']");
         private static readonly By _loadingIndicatorLocator = By.XPath("//div[@id='loaderDivImage' and contains(@style, 'display: none;')]");
+
+        public static explicit operator ProductInfo(ProductInCart product)
+        {
+            return new ProductInfo()
+            {
+                Price = product.Subtotal,
+                Title = product.Title
+            };
+        }
     }
 }

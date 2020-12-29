@@ -13,7 +13,7 @@ namespace Framework
     public class CommonConditions : IDisposable
     {
 
-        protected IWebDriver driver => _driver ?? WebDriverFactory.WebDriverFactory.Build();
+        protected IWebDriver driver => _driver ?? (_driver = WebDriverFactory.WebDriverFactory.Build());
         private IWebDriver _driver;
 
 

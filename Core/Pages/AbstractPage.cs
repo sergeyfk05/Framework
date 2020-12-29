@@ -38,10 +38,9 @@ namespace Core.Pages
 
         public SignInPage OpenSignInPage()
         {
-            //check are user signed yet
-#if RELEASE
-            throw new NotImplementedException();
-#endif
+            if (IsSignedIn)
+                throw new Exception("User is already signed in");
+
             _signInDropdownButton?.Click();
 
             _signInButton?.Click();
@@ -50,11 +49,26 @@ namespace Core.Pages
             return new SignInPage(_driver);
         }
 
+        public bool LogOut()
+        {
+            if (!IsSignedIn)
+                return true;
+
+            _signInDropdownButton?.Click();
+
+            _signOutButton.Click();
+            _driver.WaitUntiLoading();
+            return !IsSignedIn;
+        }
+
 
         public virtual void Open()
         {
             throw new NotImplementedException();
         }
+
+
+        public bool IsSignedIn => _signInOrUserLabel.GetHiddenText(_driver).Trim() != "Sign In";
 
         private static readonly IEnumerable<By> _cookieUsageAcceptButtonLocators = new List<By>()
             {
@@ -72,10 +86,17 @@ namespace Core.Pages
 
         private IWebElement _signInButton => _signInDropdown.SafeFindFirstDisplayedElementBy(_driver, _signInButtonLocator);
         private static readonly By _signInButtonLocator = By.XPath("//a[text()='Sign In']");
+
+        private IWebElement _signOutButton => _signInDropdown.SafeFindFirstDisplayedElementBy(_driver, _signOutButtonLocator);
+        private static readonly By _signOutButtonLocator = By.XPath("//a[text()='Sign Out']");
         private IWebElement _signInDropdown => _signInDropdownButton.SafeFindFirstDisplayedElementBy(_driver, _signInDropdownLocator);
         private static readonly By _signInDropdownLocator = By.XPath("//div[contains(@class, 'mh-ma-dropdown')]");
 
         private IWebElement _signInDropdownButton => _driver.SafeFindElementBy(_signInDropdownButtonLocator);
         private static readonly By _signInDropdownButtonLocator = By.XPath("//div[@class='mh-tw-sign-in-wrap']");
+
+        private IWebElement _signInOrUserLabel => _signInDropdownButton.SafeFindFirstDisplayedElementBy(_driver, _signInOrUserLabelLocator);
+        private static readonly By _signInOrUserLabelLocator = By.XPath("//span[@mh-sign-in-label='Sign In']");
+
     }
 }

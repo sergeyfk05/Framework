@@ -14,42 +14,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tests.Models;
 using Xunit;
 
 namespace Framework
 {
     public class Tests : CommonConditions
     {
-        [Theory]
-        [ClassData(typeof(AddingToCartTestDataProvider))]
-        public void AddingToCartTest(string link)
-        {
-            ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();
-            product.Open();
-            product.AcceptCookies();
-
-            double productPagePrice = product.Price;
-            string productPageTitle = product.Title;
-
-            CartPage cart = product.AddToCart().OpenCart();
-            List<ProductInCart> cartProducts = cart.Products.ToList();
-
-            Assert.Single(cartProducts);
-            Assert.Equal(1, cartProducts[0].Count); //products count should be equal "1" because the test adding one product
-            Assert.Equal(productPageTitle, cartProducts[0].Title);
-            Assert.Equal(productPagePrice, cartProducts[0].Subtotal);
-        }
 
         [Theory]
         [ClassData(typeof(RemoveFromCartTestDataProvider))]
         public void RemoveFromCartTest(IEnumerable<string> links)
         {
+            List<ProductInfo> productsInfo = new();
+
             foreach (var link in links)
             {
                 ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();
                 product.Open();
                 product.AcceptCookies();
 
+                productsInfo.Add((ProductInfo)product);
                 product.AddToCart();
             }
 
@@ -60,13 +45,14 @@ namespace Framework
 
             Assert.Equal(links.Count(), cartProducts.Count);
 
-            for (int i = links.Count(); i > 0; i--)
+            //remove one product in cart by step
+            for (int i = 0; i < links.Count(); i++)
             {
                 Assert.Equal(cartProducts.Sum(x => x.Subtotal), cart.Subtotal, 1);
+                Assert.Equal(productsInfo[i], (ProductInfo)cart.Products.ToList()[0]);
 
                 cartProducts[0].Remove();
                 cartProducts = cart.Products.ToList();
-                //Assert.Equal(i - 1, cartProducts.Count);
             }
 
             cartProducts = cart.Products.ToList();
@@ -94,11 +80,34 @@ namespace Framework
         [Fact]
         public void AuthorizationTest()
         {
+            AuthorizationTestDataModel model = new()
+            {
+                IsValidLoginData = true,
+                LoginData = new User()
+                {
+                    loginOption = LoginOption.Authorization,
+                    email = "sergeyfk05@gmail.com",
+                    password = "Qwerty123"
+                }
+            };
+
             HomePage page = new HomePage(driver);
             page.Open();
             page.AcceptCookies();
 
-            page.OpenSignInPage();
+            page.OpenSignInPage().Login(model.LoginData);
+            page = new HomePage(driver);
+            page.Open();
+
+            Assert.Equal(model.IsValidLoginData, page.IsSignedIn);
+            //finish test if login data is incorrect
+            if (!model.IsValidLoginData)
+                return;
+
+            page.LogOut();
+            Assert.False(page.IsSignedIn);
+
+
         }
     }
 }

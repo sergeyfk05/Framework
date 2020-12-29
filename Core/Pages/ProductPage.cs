@@ -1,5 +1,6 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using Core.Models;
 using OpenQA.Selenium;
 using Pages.Utils;
 using System;
@@ -55,5 +56,14 @@ namespace Core.Pages
                 By.XPath("//h3[@id='cf-subtotal-label']"),
                 By.XPath("//*[@data-soldout='false']")
             };
+
+        public static explicit operator ProductInfo(ProductPage product)
+        {
+            return new ProductInfo()
+            {
+                Price = product.Price,
+                Title = product.Title
+            };
+        }
     }
 }
