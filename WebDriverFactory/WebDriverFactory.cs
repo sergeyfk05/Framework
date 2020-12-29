@@ -29,7 +29,7 @@ namespace WebDriverFactory
                 Enum.TryParse(Environment.GetEnvironmentVariable("platform") ?? "Linux", out PlatformType platform);
                 browser.SetCapability(CapabilityType.Platform, platform);
                 browser.SetCapability("enableVNC", true);
-                var driver = new RemoteWebDriver(new Uri(Environment.GetEnvironmentVariable("SelenoidURL")), browser);
+                var driver = new RemoteWebDriver(new Uri(Environment.GetEnvironmentVariable("selenoidurl")), browser);
                 driver.Manage().Window.Maximize();
                 return driver;
             }
