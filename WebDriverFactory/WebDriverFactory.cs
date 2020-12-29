@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using System;
 using System.Collections.Generic;
 
@@ -6,20 +7,13 @@ namespace WebDriverFactory
 {
     public class WebDriverFactory
     {
-        public static WebDriverFactory Instance => _webDriverFactory ?? (_webDriverFactory = new WebDriverFactory());
-        private static WebDriverFactory _webDriverFactory;
-
-        private static readonly IDictionary<string, IBrowserFactory> _factories = new Dictionary<string, IBrowserFactory>()
+        public static IWebDriver Build()
         {
-            {"chrome", new ChromeFactory() }
-        };
-
-
-        public IWebDriver Build(string browser = "chrome")
-        {
-            IBrowserFactory browserFactory;
-            _factories.TryGetValue(browser ?? "", out browserFactory);
-            return (browserFactory ?? _factories["chrome"]).Build();
+            DesiredCapabilities browser = new DesiredCapabilities();
+            browser.SetCapability(CapabilityType.BrowserName, Environment.GetEnvironmentVariable("browser") ?? "chrome");
+            browser.SetCapability(CapabilityType.BrowserVersion, "87.0");
+            browser.SetCapability("enableVNC", true);
+            return new RemoteWebDriver(new Uri("http://bstujenkinsselenoid.ddns.net:4444/wd/hub"), browser);
         }
     }
 }
