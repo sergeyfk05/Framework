@@ -13,7 +13,7 @@ namespace WebDriverFactory
         [Obsolete]
         public static IWebDriver Build()
         {
-            if(Environment.GetEnvironmentVariable("SelenoidURL") == null)
+            if(Environment.GetEnvironmentVariable("selenoid-url") == null)
             {
                 ChromeOptions options = new ChromeOptions();
                 options.AddArgument("--start-maximized");
