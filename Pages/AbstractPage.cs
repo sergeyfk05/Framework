@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
@@ -40,9 +42,9 @@ namespace Pages
 #if RELEASE
             throw new NotImplementedException();
 #endif
-            _signInDropdownButton.Click();
+            _signInDropdownButton?.Click();
 
-            _signInButton.Click();
+            _signInButton?.Click();
             _driver.WaitUntiLoading();
 
             return new SignInPage(_driver);

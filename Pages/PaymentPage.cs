@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +20,7 @@ namespace Pages
             get
             {
                 PaymentSource result = PaymentSource.Undefined;
-                Enum.TryParse(_paymentSourcesBlock.FindElement(_paymentSourceLocator).Text, out result);
+                Enum.TryParse(_paymentSourcesBlock.FindElement(_paymentSourceLocator).Text, out result); //-V3080
                 return result;
             }
             set

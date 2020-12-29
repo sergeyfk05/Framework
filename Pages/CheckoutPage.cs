@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Models;
 using Pages.Utils;
 using System;
@@ -18,13 +20,13 @@ namespace Pages
         {
             if(user.loginOption == LoginOption.Authorization)
             {
-                _emailLoginInput.SendKeys(user.email);
-                _passwordLoginInput.SendKeys(user.password);
-                _loginButton.Click();
+                _emailLoginInput.SendKeys(user.email); //-V3080
+                _passwordLoginInput.SendKeys(user.password); //-V3080
+                _loginButton.Click(); //-V3080
             }
             else if(user.loginOption == LoginOption.Guest)
             {
-                _loginAsGuestButton.Click();
+                _loginAsGuestButton.Click(); //-V3080
             }
 
             _driver.WaitUntiLoading();

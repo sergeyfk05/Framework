@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
@@ -24,7 +26,7 @@ namespace Pages
 
 
 
-        public double Price => Convert.ToDouble(_driver.SafeFindElementBy(_priceTextLocators).Text.Replace("$", ""),
+        public double Price => Convert.ToDouble(_driver.SafeFindElementBy(_priceTextLocators).Text.Replace("$", ""), //-V3080
                 WebDriverUtils.CostToDoubleConverterProvider);
 
         public string Title => _driver.SafeFindElementBy(_productTitleLocators).GetHiddenText(_driver).Trim();

@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
@@ -35,7 +37,7 @@ namespace Pages.Models
             return obj is ProductInCart product &&
                    Title == product.Title &&
                    Count == product.Count &&
-                   Subtotal == product.Subtotal;
+                   Subtotal == product.Subtotal; //-V3024
         }
 
         public override int GetHashCode()

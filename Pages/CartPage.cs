@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Models;
 using Pages.Utils;
 using System;
@@ -16,7 +18,7 @@ namespace Pages
             _driver.Navigate().GoToUrl("https://www.dell.com/en-us/buy");
         }
 
-        public double Subtotal => Convert.ToDouble(_driver.SafeFindElementBy(_subtotalLocators).Text.Replace("$", ""),
+        public double Subtotal => Convert.ToDouble(_driver.SafeFindElementBy(_subtotalLocators).Text.Replace("$", ""), //-V3080
                 WebDriverUtils.CostToDoubleConverterProvider);
 
         private IWebElement _checkoutButton => WebDriverUtils.SafeFindFirstDisplayedElementBy(_driver, _checkoutButtonLocators);

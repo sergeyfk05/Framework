@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using OpenQA.Selenium;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
@@ -15,7 +17,7 @@ namespace Pages
 
         public PaymentPage Next(out bool hasValidationErrors)
         {
-            _nextButton.Click();
+            _nextButton.Click(); //-V3080
             if (HasValidationErrors)
             {
                 hasValidationErrors = true;
@@ -34,7 +36,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_firstNameInputLocators).Clear();
+                _driver.SafeFindElementBy(_firstNameInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_firstNameInputLocators).SendKeys(value);
             }
         }
@@ -50,7 +52,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_MIInputLocators).Clear();
+                _driver.SafeFindElementBy(_MIInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_MIInputLocators).SendKeys(value);
             }
         }
@@ -67,7 +69,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_lastNameInputLocators).Clear();
+                _driver.SafeFindElementBy(_lastNameInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_lastNameInputLocators).SendKeys(value);
             }
         }
@@ -84,7 +86,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_streetAddressInputLocators).Clear();
+                _driver.SafeFindElementBy(_streetAddressInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_streetAddressInputLocators).SendKeys(value);
             }
         }
@@ -101,7 +103,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_aptInputLocators).Clear();
+                _driver.SafeFindElementBy(_aptInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_aptInputLocators).SendKeys(value);
             }
         }
@@ -118,7 +120,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_postalCodeInputLocators).Clear();
+                _driver.SafeFindElementBy(_postalCodeInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_postalCodeInputLocators).SendKeys(value.ToString());
             }
         }
@@ -135,7 +137,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_cityInputLocators).Clear();
+                _driver.SafeFindElementBy(_cityInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_cityInputLocators).SendKeys(value);
             }
         }
@@ -168,7 +170,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_phoneNumberInputLocators).Clear();
+                _driver.SafeFindElementBy(_phoneNumberInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_phoneNumberInputLocators).SendKeys(value);
             }
         }
@@ -185,7 +187,7 @@ namespace Pages
             }
             set
             {
-                _driver.SafeFindElementBy(_emailInputLocators).Clear();
+                _driver.SafeFindElementBy(_emailInputLocators).Clear(); //-V3080
                 _driver.SafeFindElementBy(_emailInputLocators).SendKeys(value);
             }
         }
