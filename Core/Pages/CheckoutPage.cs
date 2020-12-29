@@ -1,7 +1,7 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using Core.Models;
 using OpenQA.Selenium;
-using Pages.Models;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pages
+namespace Core.Pages
 {
     public class CheckoutPage : AbstractPage
     {

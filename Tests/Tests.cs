@@ -1,12 +1,14 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 using AutoMapper;
+using Core.Builders;
+using Core.Models;
+using Core.Pages;
+using Core.Pages.PageElements;
 using Framework.Models;
 using Framework.TestDataProviders;
 using OpenQA.Selenium;
 using Pages;
-using Pages.Builders;
-using Pages.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

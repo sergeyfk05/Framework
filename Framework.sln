@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{1252A341-38BC-4602-BFF0-1EBC3643181B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{1252A341-38BC-4602-BFF0-1EBC3643181B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pages", "Pages\Pages.csproj", "{2142AF36-76B8-4898-8759-4A5887AC64CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{2142AF36-76B8-4898-8759-4A5887AC64CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDriverFactory", "WebDriverFactory\WebDriverFactory.csproj", "{6001A323-6081-4F8C-A55D-B22D3CA2B91E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebDriverFactory", "WebDriverFactory\WebDriverFactory.csproj", "{6001A323-6081-4F8C-A55D-B22D3CA2B91E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

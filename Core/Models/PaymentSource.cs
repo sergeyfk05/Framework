@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pages.Models
+namespace Core.Models
 {
     public enum PaymentSource
     {

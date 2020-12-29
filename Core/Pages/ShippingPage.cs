@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 
-namespace Pages
+namespace Core.Pages
 {
     public class ShippingPage : AbstractPage
     {

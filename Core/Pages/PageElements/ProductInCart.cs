@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Linq;
 
-namespace Pages.Models
+namespace Core.Pages.PageElements
 {
     public class ProductInCart
     {

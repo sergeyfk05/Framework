@@ -1,13 +1,13 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using Core.Pages.PageElements;
 using OpenQA.Selenium;
-using Pages.Models;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pages
+namespace Core.Pages
 {
     public class CartPage : AbstractPage
     {

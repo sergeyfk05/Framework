@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pages
+namespace Core.Pages
 {
     public class AddedToCartPage : AbstractPage
     {

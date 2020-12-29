@@ -1,16 +1,19 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pages.Models
+namespace Framework.Models
 {
-    public enum LoginOption
+    public class ShippingInfoValidationTestData
     {
-        Guest,
-        Authorization
+        public ShippingInfo Info { get; set; }
+        public string Link { get; set; }
+        public User UserInfo { get; set; }
+        public bool HasValidationErrors { get; set; }
     }
 }

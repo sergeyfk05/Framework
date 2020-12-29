@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pages
+namespace Core.Pages
 {
     public class HomePage : AbstractPage
     {

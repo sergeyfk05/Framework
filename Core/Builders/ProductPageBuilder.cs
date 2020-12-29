@@ -1,11 +1,12 @@
 ﻿// This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+using Core.Pages;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pages.Builders
+namespace Core.Builders
 {
     public class ProductPageBuilder
     {
