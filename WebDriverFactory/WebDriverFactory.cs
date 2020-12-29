@@ -27,7 +27,7 @@ namespace WebDriverFactory
                 browser.SetCapability(CapabilityType.BrowserName, Environment.GetEnvironmentVariable("browser") ?? "chrome");
                 browser.SetCapability(CapabilityType.BrowserVersion, Environment.GetEnvironmentVariable("browserversion") ?? "");
                 Enum.TryParse(Environment.GetEnvironmentVariable("platform") ?? "Linux", out PlatformType platform);
-                browser.SetCapability(CapabilityType.Platform, platform);
+                browser.SetCapability(CapabilityType.Platform, PlatformType.Linux);
                 browser.SetCapability("enableVNC", true);
                 var driver = new RemoteWebDriver(new Uri(Environment.GetEnvironmentVariable("selenoidurl")), browser);
                 driver.Manage().Window.Maximize();
