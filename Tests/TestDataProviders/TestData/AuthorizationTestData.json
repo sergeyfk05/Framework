@@ -1,0 +1,20 @@
+[
+  {
+    "LoginData": {
+      "loginOption": 1,
+      "email": "sergeyfk05@gmail.com",
+      "password": "Qwerty123"
+    },
+    "IsValidLoginData": true
+
+  }
+  {
+    "LoginData": {
+      "loginOption": 1,
+      "email": "sergeyfk05@gmail.com",
+      "password": "Qwerty1234"
+    },
+    "IsValidLoginData": false
+
+  }
+]

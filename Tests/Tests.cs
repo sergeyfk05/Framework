@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tests.Models;
+using Tests.TestDataProviders;
 using Xunit;
 
 namespace Framework
@@ -76,20 +77,10 @@ namespace Framework
             Assert.Equal(data.HasValidationErrors, hasValidationErrors);
         }
 
-        [Fact]
-        public void AuthorizationTest()
+        [Theory]
+        [ClassData(typeof(AuthorizationTestDataProvider))]
+        public void AuthorizationTest(AuthorizationTestDataModel model)
         {
-            AuthorizationTestDataModel model = new()
-            {
-                IsValidLoginData = true,
-                LoginData = new User()
-                {
-                    loginOption = LoginOption.Authorization,
-                    email = "sergeyfk05@gmail.com",
-                    password = "Qwerty123"
-                }
-            };
-
             HomePage page = new HomePage(driver);
             page.Open();
             page.AcceptCookies();
@@ -109,27 +100,10 @@ namespace Framework
 
         }
 
-        [Fact]
-        public void SaveCartFromGuestUserTest()
-        {
-            SaveCartFromGuestUserTestDataModel model = new SaveCartFromGuestUserTestDataModel()
-            {
-                LoginData = new User()
-                {
-                    loginOption = LoginOption.Authorization,
-                    email = "sergeyfk05@gmail.com",
-                    password = "Qwerty123"
-                },
-                Links= new List<string>()
-                {
-                    "https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s",
-                    "https://www.dell.com/en-us/shop/dell-laptops/alienware-m17-r3-gaming-laptop/spd/alienware-m17-r3-laptop/wnm17r330s"
-                }
-
-            };
-            
-
-
+        [Theory]
+        [ClassData(typeof(SaveCartFromGuestUserTestDataProvider))]
+        public void SaveCartFromGuestUserTest(SaveCartFromGuestUserTestDataModel model)
+        {       
             //prepare - login, clear cart and logout
             HomePage page = new HomePage(driver);
             page.Open();
@@ -169,20 +143,11 @@ namespace Framework
 
         }
 
-        [Fact]
-        public void CouponTest()
+        [Theory]
+        [ClassData(typeof(CouponTestDataProvider))]
+        public void CouponTest(CouponTestDataModel model)
         {
-            CouponTestDataModel model = new CouponTestDataModel()
-            {
-                Coupon = "sad",
-                IsCouponValid = false,
-                Links = new List<string>()
-                {
-                    "https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s",
-                    "https://www.dell.com/en-us/shop/dell-laptops/alienware-m17-r3-gaming-laptop/spd/alienware-m17-r3-laptop/wnm17r330s"
-                }
 
-            };
             foreach (var link in model.Links)
             {
                 ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();

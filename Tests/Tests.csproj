@@ -33,7 +33,16 @@
     <None Update="TestDataProviders\TestData\AddingToCartTestData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestDataProviders\TestData\AuthorizationTestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestDataProviders\TestData\CouponTestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestDataProviders\TestData\RemoveFromCartTestData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TestDataProviders\TestData\SaveCartFromGuestUserTestData.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestDataProviders\TestData\ShippingInfoValidationTestData.json">
