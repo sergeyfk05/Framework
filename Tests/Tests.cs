@@ -9,6 +9,7 @@ using Framework.Models;
 using Framework.TestDataProviders;
 using OpenQA.Selenium;
 using Pages;
+using Pages.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,8 +75,6 @@ namespace Framework
             shippingPage.Next(out hasValidationErrors);
             Assert.Equal(data.HasValidationErrors, hasValidationErrors);
         }
-
-        private IMapper _mapper => (new MapperConfiguration(cfg => cfg.CreateMap<ShippingInfo, ShippingPage>())).CreateMapper();
 
         [Fact]
         public void AuthorizationTest()
@@ -201,5 +200,19 @@ namespace Framework
 
             Assert.Equal(model.IsCouponValid, isCouponValid);
         }
+
+        [Fact]
+        public void ChatTest()
+        {
+            HomePage page = new HomePage(driver);
+            page.Open();
+            page.AcceptCookies();
+
+            page.OpenChat();
+
+            page.Chat.GetHiddenText(driver);
+        }
+
+        private IMapper _mapper => (new MapperConfiguration(cfg => cfg.CreateMap<ShippingInfo, ShippingPage>())).CreateMapper();
     }
 }

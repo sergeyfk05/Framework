@@ -67,6 +67,22 @@ namespace Core.Pages
             throw new NotImplementedException();
         }
 
+        public void OpenChat()
+        {
+            _supportOverlay.Click();
+            _openChatButton.Click();
+            _chatOverlay.Click();
+        }
+
+        public IWebElement Chat => _driver.SafeFindFirstDisplayedElementBy(_chatLocator);
+        private static readonly By _chatLocator = By.XPath("//div[@data-widget='chat']");
+
+        private IWebElement _chatOverlay => _driver.SafeFindFirstDisplayedElementBy(_chatOverlayLocator);
+        private static readonly By _chatOverlayLocator = By.XPath("//li[@data-widget='chat']");
+        private IWebElement _openChatButton => _driver.SafeFindFirstDisplayedElementBy(_openChatButtonLocator);
+        private static readonly By _openChatButtonLocator = By.XPath("//div[@id='chatDrawer']//ul/li[1]/a");
+        private IWebElement _supportOverlay => _driver.SafeFindFirstDisplayedElementBy(_supportOverlayLocator);
+        private static readonly By _supportOverlayLocator = By.XPath("//a[@class='dds__drawer-tab']");
 
         public bool IsSignedIn => _signInOrUserLabel.GetHiddenText(_driver).Trim() != "Sign In";
 
