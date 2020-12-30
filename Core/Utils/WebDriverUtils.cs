@@ -19,6 +19,14 @@ namespace Pages.Utils
             wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
             return wait.Until(d => d.FindElement(by));
         }
+
+        public static IWebElement WaitUntilElementShowed(this IWebDriver driver, By by, double timeout = 20)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+            return wait.Until(d => { try { d.FindFirstDisplayedElementBy(by); } catch { return d.FindElement(By.XPath("//body")); }  throw new NoSuchElementException(); });
+        }
+
         public static IWebElement SafeFindElementBy(this IWebDriver driver, IEnumerable<By> byCollection, double timeout = 20)
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));

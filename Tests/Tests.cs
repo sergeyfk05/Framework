@@ -169,5 +169,37 @@ namespace Framework
             cartPage.ClearCart();
 
         }
+
+        [Fact]
+        public void CouponTest()
+        {
+            CouponTestDataModel model = new CouponTestDataModel()
+            {
+                Coupon = "sad",
+                IsCouponValid = false,
+                Links = new List<string>()
+                {
+                    "https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s",
+                    "https://www.dell.com/en-us/shop/dell-laptops/alienware-m17-r3-gaming-laptop/spd/alienware-m17-r3-laptop/wnm17r330s"
+                }
+
+            };
+            foreach (var link in model.Links)
+            {
+                ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();
+                product.Open();
+                product.AcceptCookies();
+
+                product.AddToCart();
+            }
+
+            CartPage cartPage = new CartPage(driver);
+            cartPage.Open();
+
+            bool isCouponValid;
+            cartPage.EnterCoupon(model.Coupon, out isCouponValid);
+
+            Assert.Equal(model.IsCouponValid, isCouponValid);
+        }
     }
 }

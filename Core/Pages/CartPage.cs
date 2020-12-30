@@ -39,6 +39,29 @@ namespace Core.Pages
             return this;
         }
 
+        public CartPage EnterCoupon(string coupon, out bool status)
+        {
+            _couponInput.SendKeys(coupon);
+            _couponApplyButton.Click();
+
+
+            _driver.WaitUntilElementShowed(_couponLoaderLocators);
+
+            status = true;
+
+            try
+            {
+                _couponReturnMessage.GetHiddenText(_driver);
+                status = false;
+            }
+            catch
+            {
+            }
+
+            return this;
+
+        }
+
         public IEnumerable<ProductInCart> Products
         {
             get
@@ -55,6 +78,27 @@ namespace Core.Pages
                 return products;
             }
         }
+        
+
+        private IWebElement _couponLoader => _driver.SafeFindFirstDisplayedElementBy(_couponLoaderLocators);
+        private static readonly By _couponLoaderLocators = By.XPath("//div[@id='loaderDivImage']");
+
+        private IWebElement _couponReturnMessage => _driver.SafeFindFirstDisplayedElementBy(_couponReturnMessageLocators, 5);
+        private static readonly IEnumerable<By> _couponReturnMessageLocators = new List<By>()
+            {
+                By.XPath("//p[@data-testid='coupon-return-message-paragraph']")
+            };
+
+        private IWebElement _couponInput => _driver.SafeFindFirstDisplayedElementBy(_couponInputLocators);
+        private static readonly IEnumerable<By> _couponInputLocators = new List<By>()
+            {
+                By.XPath("//input[@id='appendedCouponInputButton']")
+            };
+        private IWebElement _couponApplyButton => _driver.SafeFindFirstDisplayedElementBy(_couponApplyButtonLocators);
+        private static readonly IEnumerable<By> _couponApplyButtonLocators = new List<By>()
+            {
+                By.XPath("//button[@id='applyCouponButton']")
+            };
 
         private static readonly IEnumerable<By> _checkoutButtonLocators = new List<By>()
             {
