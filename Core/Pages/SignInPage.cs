@@ -21,7 +21,7 @@ namespace Core.Pages
             if (user.loginOption == LoginOption.Guest)
                 throw new ArgumentException();
 
-            EmailInput.SendKeys(user.email);
+            EmailInput?.SendKeys(user.email);
             PasswordInput.SendKeys(user.password);
             SignInButton.Click();
 
@@ -38,7 +38,7 @@ namespace Core.Pages
 
         }
 
-        protected IWebElement EmailInput => _driver.SafeFindFirstDisplayedElementBy(_emailInputLocator);
+        protected IWebElement EmailInput => _driver.SafeFindFirstDisplayedElementBy(_emailInputLocator, 5);
 
         private static readonly IEnumerable<By> _emailInputLocator = new List<By>()
             {

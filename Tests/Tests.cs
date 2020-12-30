@@ -109,5 +109,65 @@ namespace Framework
 
 
         }
+
+        [Fact]
+        public void SaveCartFromGuestUserTest()
+        {
+            SaveCartFromGuestUserTestDataModel model = new SaveCartFromGuestUserTestDataModel()
+            {
+                LoginData = new User()
+                {
+                    loginOption = LoginOption.Authorization,
+                    email = "sergeyfk05@gmail.com",
+                    password = "Qwerty123"
+                },
+                Links= new List<string>()
+                {
+                    "https://www.dell.com/en-us/shop/cty/pdp/spd/xps-15-9500-laptop/xn9500cto210s",
+                    "https://www.dell.com/en-us/shop/dell-laptops/alienware-m17-r3-gaming-laptop/spd/alienware-m17-r3-laptop/wnm17r330s"
+                }
+
+            };
+            
+
+
+            //prepare - login, clear cart and logout
+            HomePage page = new HomePage(driver);
+            page.Open();
+            page.AcceptCookies();
+            page.OpenSignInPage().Login(model.LoginData);
+            CartPage cartPage = new CartPage(driver);
+            cartPage.Open();
+            cartPage.ClearCart().LogOut();
+
+            //add products from guest
+            foreach (var link in model.Links)
+            {
+                ProductPage product = new ProductPageBuilder(driver).SetProductLink(link).Build();
+                product.Open();
+                product.AcceptCookies();
+
+                product.AddToCart();
+            }
+
+            //save products in guest cart
+            page = new HomePage(driver);
+            page.Open();
+            cartPage = new CartPage(driver);
+            cartPage.Open();
+            List<ProductInfo> guestCart = cartPage.Products.Select(x => (ProductInfo)x).ToList();
+
+            //login and save product in user cart
+            cartPage.OpenSignInPage().Login(model.LoginData);
+            cartPage = new CartPage(driver);
+            cartPage.Open();
+            List<ProductInfo> userCart = cartPage.Products.Select(x => (ProductInfo)x).ToList();
+
+
+            Assert.True(Enumerable.SequenceEqual(guestCart, userCart));
+
+            cartPage.ClearCart();
+
+        }
     }
 }

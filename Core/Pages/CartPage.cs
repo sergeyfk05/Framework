@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using Pages.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Core.Pages
@@ -27,6 +28,15 @@ namespace Core.Pages
             _checkoutButton?.Click();
             _driver.WaitUntiLoading();
             return new CheckoutPage(_driver);
+        }
+
+        public CartPage ClearCart()
+        {
+            int cartCount = Products.Count();
+            for (; cartCount > 0; cartCount--)
+                Products.ToList()[0].Remove();
+
+            return this;
         }
 
         public IEnumerable<ProductInCart> Products
